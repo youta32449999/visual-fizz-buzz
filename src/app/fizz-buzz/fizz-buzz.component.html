@@ -1,0 +1,11 @@
+<table class="fizz-buzz-table">
+    <tr *ngFor="let items of fizzBuzzList">
+        <td *ngFor="let item of items"
+        [class.fizz]="item === 'Fizz'"
+        [class.buzz]="item === 'Buzz'"
+        [class.fizzbuzz]="item === 'FizzBuzz'"
+        [class.notfizzbuzz]="item != 'Fizz' && item != 'Buzz' && item != 'FizzBuzz'">
+            {{item}}
+        </td>
+    </tr>
+</table>

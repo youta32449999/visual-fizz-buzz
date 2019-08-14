@@ -1,0 +1,13 @@
+<label for="fizzbuzznum">1-</label>
+<input type="number" id="fizzbuzznum" [(ngModel)]="fizzBuzzParam.num">
+
+<label for="fizz">fizz:</label>
+<input type="number" id="fizz" [(ngModel)]="fizzBuzzParam.fizz">
+
+<label for="buzz">buzz:</label>
+<input type="number" id="buzz" [(ngModel)]="fizzBuzzParam.buzz">
+
+<app-fizz-buzz 
+    [fizzBuzzNum]="fizzBuzzParam.num"
+    [fizz]="fizzBuzzParam.fizz"
+    [buzz]="fizzBuzzParam.buzz"></app-fizz-buzz>

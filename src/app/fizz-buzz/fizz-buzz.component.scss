@@ -1,0 +1,29 @@
+table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    // line-height: 1.5;
+    table-layout: fixed;
+    width: 1000px;
+}
+th, td {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    // line-height: 1.5;
+    
+}
+
+.fizz {
+    background-color: #40AAEF;
+}
+
+.buzz {
+    background-color: #58BE89;
+}
+
+.fizzbuzz {
+    background-color: #F27398;
+}
+
+.notfizzbuzz {
+    background-color: #ECEEF1;
+}
