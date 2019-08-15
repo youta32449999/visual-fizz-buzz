@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FizzBuzzService } from '../fizz-buzz.service';
-import { FizzBuzzParam } from '../fizz-buzz-param';
-
 
 @Component({
   selector: 'app-fizz-buzz',
@@ -17,12 +15,11 @@ export class FizzBuzzComponent implements OnInit {
   }
 
   ngOnInit() {
-    /**パラメータの変化を監視 */
-    this.fizzBuzzService.fizzBuzzParam$.subscribe(data => {
-      const result = this.fizzBuzzService.getFizzBuzz(data);
-      /** 　パラメータが変化したら表示を更新 */
-      this.fizzBuzzList = divide(result, 10);
-    });
+    /** リストの変化を監視 */
+    this.fizzBuzzService.fizzBuzzList$.subscribe(list => {
+      const result = divide(list, 10);
+      this.fizzBuzzList = result;
+    })
   }
 }
 

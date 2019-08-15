@@ -10,7 +10,17 @@ export class FizzBuzzService {
   private fizzBuzzParam: BehaviorSubject<FizzBuzzParam> = new BehaviorSubject<FizzBuzzParam>(new FizzBuzzParam(100, 3, 5));
   fizzBuzzParam$: Observable<FizzBuzzParam> = this.fizzBuzzParam.asObservable();
 
-  constructor() {}
+  /** FizzBuzzのリストはパラメータの変化を監視してService内で更新 */
+  private fizzBuzzList: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.getFizzBuzz(this.fizzBuzzParam.getValue()));
+  fizzBuzzList$: Observable<string[]> = this.fizzBuzzList.asObservable();
+
+  constructor() {
+    /** パラメータの変化を監視してリストを更新 */
+    this.fizzBuzzParam$.subscribe(param => {
+      const result = this.getFizzBuzz(param);
+      this.fizzBuzzList.next(result);
+    });
+  }
 
   /** 初期を取得する */
   getInitValue(): FizzBuzzParam {
@@ -23,7 +33,7 @@ export class FizzBuzzService {
   }
 
   /** FizzBuzzを計算する */
-  getFizzBuzz(param: FizzBuzzParam): string[] {
+  private getFizzBuzz(param: FizzBuzzParam): string[] {
     const num = param.num;
     const fizz = param.fizz;
     const buzz = param.buzz;
