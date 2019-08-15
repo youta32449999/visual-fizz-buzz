@@ -10,39 +10,19 @@ import { FizzBuzzParam } from '../fizz-buzz-param';
 })
 export class FizzBuzzComponent implements OnInit {
 
-  /** 親からパラメータを受け取る */
-  @Input() 
-  set fizzBuzzNum(num: number) {
-    this.fizzBuzzService.fizzBuzzParam.num = num;
-    this.getFizzBuzz();
-  }
-
-  @Input() 
-  set fizz(fizz: number) {
-    this.fizzBuzzService.fizzBuzzParam.fizz = fizz;
-    this.getFizzBuzz();
-  }
-
-  @Input() 
-  set buzz(buzz: number) {
-    this.fizzBuzzService.fizzBuzzParam.buzz = buzz;
-    this.getFizzBuzz();
-  }
-
   /** テンプレート表示用 */
   fizzBuzzList: string[][];
 
   constructor(private fizzBuzzService: FizzBuzzService) { 
-
   }
 
   ngOnInit() {
-    this.getFizzBuzz();
-  }
-
-  /** FizzBuzzの配列を更新する */
-  getFizzBuzz() {
-    this.fizzBuzzList = divide(this.fizzBuzzService.getFizzBuzz(), 10);
+    /**パラメータの変化を監視 */
+    this.fizzBuzzService.fizzBuzzParam$.subscribe(data => {
+      const result = this.fizzBuzzService.getFizzBuzz(data);
+      /** 　パラメータが変化したら表示を更新 */
+      this.fizzBuzzList = divide(result, 10);
+    });
   }
 }
 

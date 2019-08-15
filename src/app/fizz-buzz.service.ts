@@ -1,21 +1,32 @@
 import { Injectable } from '@angular/core';
 import { FizzBuzzParam } from './fizz-buzz-param';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FizzBuzzService {
-  /** FizzBuzzのパラメータを保持 */
-  fizzBuzzParam: FizzBuzzParam;  
+  /** FizzBuzzのパラメータ変化を監視 */
+  private fizzBuzzParam: BehaviorSubject<FizzBuzzParam> = new BehaviorSubject<FizzBuzzParam>(new FizzBuzzParam(100, 3, 5));
+  fizzBuzzParam$: Observable<FizzBuzzParam> = this.fizzBuzzParam.asObservable();
 
-  constructor() {
+  constructor() {}
+
+  /** 初期を取得する */
+  getInitValue(): FizzBuzzParam {
+    return this.fizzBuzzParam.getValue();
+  }
+  
+  /** データをSubjectにpushする */
+  pushData(data: FizzBuzzParam): void {
+    this.fizzBuzzParam.next(data);
   }
 
   /** FizzBuzzを計算する */
-  getFizzBuzz(): string[] {
-    const num = this.fizzBuzzParam.num;
-    const fizz = this.fizzBuzzParam.fizz;
-    const buzz = this.fizzBuzzParam.buzz;
+  getFizzBuzz(param: FizzBuzzParam): string[] {
+    const num = param.num;
+    const fizz = param.fizz;
+    const buzz = param.buzz;
 
     const list = Array.from(new Array(num)).map((_, i) => i + 1);
     const result = list.map(v => {

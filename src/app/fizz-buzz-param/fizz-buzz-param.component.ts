@@ -11,12 +11,17 @@ export class FizzBuzzParamComponent implements OnInit {
   fizzBuzzParam: FizzBuzzParam;
 
   constructor(private  fizzBuzzService: FizzBuzzService) {
-    this.fizzBuzzParam = new FizzBuzzParam(100, 3, 5);
-    this.fizzBuzzService.fizzBuzzParam = this.fizzBuzzParam;
+    this.fizzBuzzParam = this.fizzBuzzService.getInitValue();
   }
 
   ngOnInit() {
-  
+    /** 初期値を通知する */
+    this.paramOnChange(this.fizzBuzzParam);
   }
+
+  /** 変更を通知する */
+  paramOnChange(data: FizzBuzzParam) {
+    this.fizzBuzzService.pushData(data);
+  } 
 
 }
